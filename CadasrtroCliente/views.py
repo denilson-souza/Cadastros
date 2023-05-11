@@ -1,4 +1,8 @@
+
+
 from django.shortcuts import render
+
+from CadasrtroCliente.models import Cliente, Profissao
 
 # Create your views here.
 def index(request):
@@ -9,3 +13,27 @@ def index(request):
     "frutas": lista_frutas
     }
     return render(request, "index.html", context)
+
+def lista_clientes(request):
+    lista_clientes = Cliente.objects.all()
+    lista_profissoes = Profissao.objects.all()
+    context = {
+        "clientes": lista_clientes,
+         "profissoes": lista_profissoes,
+    }
+    return render(request, "lista_clientes.html", context)
+
+def lista_profissoes(request):
+    lista_profissoes = Profissao.objects.all()
+    context={
+        "profissoes": lista_profissoes
+    }
+    return render(request, "lista_profissoes.html", context)
+
+def detalhar_cliente(request, id):
+    cliente = Cliente.objects.get(id = id)
+    context = {
+        "cliente": cliente
+    }
+    return render(request, "cliente_detalhes.html", context)
+
